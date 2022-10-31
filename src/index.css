@@ -1,13 +1,34 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import url("https://use.typekit.net/nmb6bco.css");
+
+
+:root{
+  --dark-gren: #006414;
+  --green: #009929;
+  --light-green: #5ccb5f;
+  --red: #e80729;
+  --light-red: #ef2947;
+  --orange: #efa229;
+  --light-orange: #f3b24a;
+  --color-titulo: black;
+  --color-subtitulo: gray;
+  --color-p: rgb(122, 121, 126);
+  --fuente: work-sans,Helvetica,Arial,sans-serif;
+}
+
+*{
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--fuente);
+}
+
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
