@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../View/Components/header.css';
+import './header.css';
 // import ReactDOM from 'react-dom/client';
 import logo from './logobuena.jpg';
 
