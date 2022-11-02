@@ -34,6 +34,8 @@
     font-size: 1.2rem;
     transition: color, background-color 0.5s;
     cursor: pointer;
+
+    overflow: auto;
 }
 
 .filter input[type=submit]:hover{

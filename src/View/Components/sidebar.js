@@ -8,16 +8,16 @@ export default class Sidebar extends React.Component{
             <div className='filter'>
                 <h2>Precio</h2>
                 <form >
-                    <input type="range" min="1" max="100" value='1' id='' />
+                    <input type="range" min="1" max="100" value='1' id='' /><br></br>
                     <div className='limit left'>
                         <label for='lower'>Desde</label><br></br>
-                        <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={`Pedir a la bd`} ></input>
+                        <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={`$ 1`} ></input>
 
                     </div>
 
                     <div className='limit right'>
                         <label for='higher'>De</label><br></br>
-                        <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={`Pedir a la bd`} ></input>
+                        <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={`$ 100`} ></input>
 
                     </div>
 
