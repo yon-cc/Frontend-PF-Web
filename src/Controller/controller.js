@@ -13,13 +13,13 @@ export default class Controller{
     }
 
     async getProducts(stateData){
-        const data = await this.getRequest("/data.json?token=GHSAT0AAAAAABY3PUSEVVPKZI6NAYIS324YY3D4N3Q");
+        const data = await this.getRequest("data.json");
 
         stateData = data.slice(0,data.lenght);
     }
 
     async getMaxMin(stateMaxMin){
-        const data = await this.getRequest("");
+        const data = await this.getRequest("maxmin.json");
 
         stateMaxMin = data.slice(0, data.lenght);
     }
