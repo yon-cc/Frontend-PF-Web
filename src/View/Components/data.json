@@ -1,5 +1,5 @@
-export const data = [
 
+[
     {
     
         "id": 1,
@@ -838,4 +838,5 @@ export const data = [
         "img":"img/16.jpg",
         "descrip":"Aceite corporal empleado para moldear y realzar el busto dándole una apariencia de mayor volumen. Hidrata y nutre ayudando a prevenir las estrías de esta zona tan sensible. Utilízalo directamente con ligeros masajes circulares hasta su total absorción. Puedes utilizarlo de forma diaria, para mejores resultados te aconsejamos de dos a tres aplicaciones al día."
     }
-];
+
+]

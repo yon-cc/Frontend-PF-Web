@@ -1,13 +1,13 @@
 import React from "react";
 import "./grid.css"
-import {data} from "./temp";
+// import {data} from "./temp";
 
 export default class Grid extends React.Component{
     constructor(props){
         super(props);
 
         this.state = {
-            data: data.slice(0, data.lenght),
+            // data: data.slice(0, data.lenght),
         }
     }
 
