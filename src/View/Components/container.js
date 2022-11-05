@@ -2,13 +2,43 @@ import React from "react";
 import Sidebar from "./sidebar";
 import "./container.css"
 import Grid from "./grid";
+import controller from '../../Controller/controller';
+
 
 export default class Container extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            max:0,
+            min:0,
+            data: [],
+        }
+    }
+
+    componentDidMount(){
+        controller.getProducts().then(
+            (data) =>{
+                this.setState({data: data});
+            }
+        );
+
+
+        controller.getMaxMin().then(
+            (maxmin)=>{
+                this.setState({max: maxmin.max, min:maxmin.min})
+            }
+        );
+    }
+
     render(){
+
+        console.log(this.state.min)
         return(
             <div className="container">
-                <Sidebar></Sidebar>
-                <Grid></Grid>
+                <Sidebar min={this.state.min} max={this.state.max}></Sidebar>
+                <Grid data={this.state.data}></Grid>
             </div>
         )
     }

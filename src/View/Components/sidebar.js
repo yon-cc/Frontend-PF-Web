@@ -1,6 +1,5 @@
 import React from 'react';
 import './sidebar.css';
-import controller from '../../Controller/controller';
 
 export default class Sidebar extends React.Component{
 
@@ -8,20 +7,10 @@ export default class Sidebar extends React.Component{
         super(props);
 
         this.state = {
-            value:1,
-            max:0,
-            min:0,
+            value:this.props.min,
         };
 
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentDidMount(){
-        controller.getMaxMin().then(
-            (maxmin)=>{
-                this.setState({max: maxmin.max, min:maxmin.min})
-            }
-        );
     }
 
     handleChange(e){
@@ -30,14 +19,14 @@ export default class Sidebar extends React.Component{
 
 
     render(){
-        console.log(this.state.max)
-        console.log(this.state.min)
+        // console.log(this.state.max)
+        // console.log(this.state.min)
         return(
         <div className='box'>
             <div className='filter'>
                 <h2>Precio</h2>
                 <form >
-                    <input type="range" min={this.state.min} max={this.state.max} value={this.state.value} id='priceFilter' onChange={this.handleChange} step="1" /><br></br>
+                    <input type="range" min={this.props.min} max={this.props.max} value={this.state.value} id='priceFilter' onChange={this.handleChange} step="1" /><br></br>
                     <div className='limit left'>
                         <label htmlFor='lower'>Desde</label><br></br>
                         <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={`$ ${this.state.value}`} ></input>
@@ -46,7 +35,7 @@ export default class Sidebar extends React.Component{
 
                     <div className='limit right'>
                         <label htmlFor='higher'>De</label><br></br>
-                        <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={this.state.max} ></input>
+                        <input readOnly="readonly" type="text" className='filter-limit' id="" placeholder={`$ ${this.props.max}`} ></input>
 
                     </div>
 
