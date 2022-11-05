@@ -1,4 +1,5 @@
 import React from "react";
+import controller from "../../Controller/controller";
 import "./grid.css"
 // import {data} from "./temp";
 
@@ -7,8 +8,18 @@ export default class Grid extends React.Component{
         super(props);
 
         this.state = {
-            // data: data.slice(0, data.lenght),
+            data: [],
         }
+    }
+
+    componentDidMount(){
+        controller.getProducts().then(
+            (data) =>{
+                this.setState({data: data});
+            }
+        );
+
+        
     }
 
 

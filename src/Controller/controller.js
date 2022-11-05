@@ -1,4 +1,4 @@
-export default class Controller{
+class Controller{
     constructor(){
         // ! DEJAR UN SOLO URL y modificar metodos de get y post
         this.url = "https://raw.githubusercontent.com/yon-cc/Frontend-PF-Web/main/src/Model";
@@ -6,7 +6,7 @@ export default class Controller{
     }
 
     async getRequest(endpoint){
-        const response  = fetch(this.url + `${endpoint}`);
+        const response  = fetch(this.url + `/${endpoint}`);
         const data = (await response).json();
 
         return data;
@@ -14,13 +14,14 @@ export default class Controller{
 
     async getProducts(stateData){
         const data = await this.getRequest("data.json");
-
-        stateData = data.slice(0,data.lenght);
+        return data;
     }
 
     async getMaxMin(stateMaxMin){
         const data = await this.getRequest("maxmin.json");
-
-        stateMaxMin = data.slice(0, data.lenght);
+        return data;
     }
 }
+
+const controller = new Controller();
+export default controller
