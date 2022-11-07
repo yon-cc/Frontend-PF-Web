@@ -14,11 +14,12 @@ export default class Container extends React.Component{
             max:0,
             min:0,
             data: [],
+            page: 1
         }
     }
 
     componentDidMount(){
-        controller.getProducts().then(
+        controller.getProducts(1).then(
             (data) =>{
                 this.setState({data: data});
             }
@@ -33,8 +34,6 @@ export default class Container extends React.Component{
     }
 
     render(){
-
-        console.log(this.state.min)
         return(
             <div className="container">
                 <Sidebar min={this.state.min} max={this.state.max}></Sidebar>

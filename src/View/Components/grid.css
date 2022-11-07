@@ -11,3 +11,140 @@
         grid-column: auto / span 4;
     }
 }
+
+
+/* * Productos */
+
+/* * Descuento */
+.discount{
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 530;
+    line-height: 65px;
+    color: #fff;
+    background-color: var(--red);
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+}
+
+span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+
+/* * Tarjetas */
+.product{
+    background-color: #fff;
+    position: relative;
+    text-align: center;
+    margin: 5px;
+    overflow: hidden;   
+    border-collapse: collapse;
+    display: flex;
+    justify-content:flex-end;
+    flex-direction: column;
+    transition:  0.5s;
+    z-index: 1;
+    
+
+    height: 500px;
+}
+
+.product:hover{
+    z-index: 2;
+    transform: scale(1.1,1.1);
+    box-shadow: 2px 10px 10px 5px rgb(213, 213, 213);
+    cursor: pointer;
+}
+
+.product:hover .btn-holder{
+    clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+}
+
+.product:hover .fav{
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.product h3{
+    padding: 0px 5px;
+    margin: 18px 0px;
+    color: var(--green);
+}
+
+
+.title{
+    overflow: hidden;
+    color: var(--color-titulo);
+}
+.fav{
+    position: absolute;
+    font-size: 1.4rem;
+    top: 20px;
+    right: 25px;
+    clip-path: polygon(49% 57%, 49% 57%, 49% 57%, 49% 57%);
+    transition: clip-path 1s;
+    color: var(--red);
+    padding: 1px;
+}
+
+.fill{
+    display: none;
+}
+
+.fav-box:hover > .fill{
+    display: block;
+}
+
+.fav-modal{
+    font-size: 2rem;
+    top: 30px;
+    right: 90px;
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+}
+
+
+.img-holder{
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    max-width: 65%;
+}
+
+.btn-holder{
+    display: flex;
+    margin-bottom: 18px;
+    justify-content: center;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    width: 100%;
+    transition: clip-path 1s;
+}
+
+.btn-carrito{
+    z-index: 2;
+    padding: 10px 25px 15px 25px;
+    background-color: var(--orange);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.btn-carrito:hover {
+    background-color: var(--green);
+    color: #000;
+}
+
+.cesta{
+    margin-right: 10px;
+    font-size: 1rem;
+}

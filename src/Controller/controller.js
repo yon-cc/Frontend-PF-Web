@@ -1,25 +1,38 @@
 class Controller{
     constructor(){
         // ! DEJAR UN SOLO URL y modificar metodos de get y post
-        this.url = "https://raw.githubusercontent.com/yon-cc/Frontend-PF-Web/main/src/Model";
+        this.url = "http://localhost:1802/api";
         // this.urlMax = "";
     }
 
     async getRequest(endpoint){
         const response  = fetch(this.url + `/${endpoint}`);
         const data = (await response).json();
+        // console.log(response)
+        return data;
 
+    }
+
+    async getProducts(page){
+        const data = await this.getRequest(`products/${page}`);
         return data;
     }
 
-    async getProducts(stateData){
-        const data = await this.getRequest("data.json");
+    async getMaxMin(){
+        // const data = await this.getRequest("maxmin.json");
+        const data  = {min:1,max:100}
         return data;
     }
 
-    async getMaxMin(stateMaxMin){
-        const data = await this.getRequest("maxmin.json");
-        return data;
+    async getImage(url){
+        const endpoint = `http://localhost:1802/api/products/image/${url.split("images/").pop()}`
+        // console.log(endpoint);
+        // const data = await this.getRequest(`${endpoint}`);
+        const response = await  fetch(endpoint);
+        const imageBlob = await response.blob();
+        const imgUrl = await URL.createObjectURL(imageBlob);
+        console.log(imgUrl)
+        return imgUrl;
     }
 }
 

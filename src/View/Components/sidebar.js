@@ -7,10 +7,14 @@ export default class Sidebar extends React.Component{
         super(props);
 
         this.state = {
-            value:this.props.min,
+            value:0,
         };
 
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount(){
+        this.setState({value:this.props.min})
     }
 
     handleChange(e){
@@ -19,8 +23,6 @@ export default class Sidebar extends React.Component{
 
 
     render(){
-        // console.log(this.state.max)
-        // console.log(this.state.min)
         return(
         <div className='box'>
             <div className='filter'>
