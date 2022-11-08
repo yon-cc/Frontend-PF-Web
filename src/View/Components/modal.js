@@ -11,9 +11,34 @@ export default function Modal({modalType, data, show, closeModal}){
       document.body.style.overflow = "auto";
     }
 
+    const submitLogIn = () => {
+      
+
+    }
+    const isLetter= (e) => {
+      let char = String.fromCharCode(e.keyCode); // Get the character
+      if(/^[A-Za-z]+$/.test(char)) return true; // Match with regex 
+      else e.preventDefault(); // If not match, don't add to input text
+    }
+
+    const checkPassword= (e)=>{
+      if(document.getElementById("pass1").value !== document.getElementById("pass2")){
+        document.getElementById("dontPasswords").style.display = "block";
+        document.getElementById("pass2").value = ""
+
+      }else{
+        document.getElementById("dontPasswords").style.display = "none";
+
+      }
+      
+    }
+
+
     let modalContent;
     let modalClass;
-    console.log(modalType);
+    let errorForm;
+    let showError;
+
     switch (modalType) {
       case "product":
         
@@ -38,20 +63,21 @@ export default function Modal({modalType, data, show, closeModal}){
 
       case "sigIn":
         modalContent = <>
-          <span span className="close" onClick={closeModal} id="close">&times;</span>
+          <span span className="close" id="close">&times;</span>
             <div class="">
-                <form>
+                <form method='post' action=''>
                     <h2>Crear nueva cuenta</h2>
-                    <input type="text" name="email" id="" class="email-input" placeholder="Nombre"/><br/>
-                    <input type="text" name="pass" id="" placeholder="Apellidos"/><br/>
+                    <input type="text" name="name" id="" class="email-input" placeholder="Nombre" required/><br/>
+                    <input type="text" name="surname" id="" placeholder="Apellidos" required/><br/>
                     <h2>Informacion de inicio de sesion</h2>
-                    <input type="email" name="pass" id="" placeholder="Email"/><br/>
-                    <input type="password" name="pass" id="" placeholder="Contraseña"/><br/>
-                    <input type="password" name="pass" id="" placeholder="Confirmar Contraseña"/><br/>
+                    <input type="email" name="email" id="" placeholder="Email"required/><br/>
+                    <input type="password" name="pass" id="pass1" placeholder="Contraseña"required/><br/>
+                    <input type="password" name="passConf" id="pass2" placeholder="Confirmar Contraseña" onKeyUp={checkPassword}  required/><br/>
                     
+                    <p style={{color:"red",display:"none"}} id="dontPasswords">Las constraseñas no coinciden.</p>
                     <p>La contraseña debe contener al menos una mayuscula y un numero.</p>
                     <div class="captcha">
-                        <input type="checkbox" name="captcha" id=""/>
+                        <input type="checkbox" name="captcha" id=""required/>
                         <label htmlFor="captcha">No soy un robot</label>
                         <div class="" style={{display:"flex",alignItems: "center",flexDirection: "column",}}>
                             <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/RecaptchaLogo.svg" alt="Captcha"/><br/>
@@ -61,8 +87,8 @@ export default function Modal({modalType, data, show, closeModal}){
                         </div>
                     </div>
                     
-                    <button class="btn-carrito btn-access full left" style={{backgroundColor:"var(--green)"}} type="submit">Crear Cuenta</button>
-                    <button class="btn-carrito btn-access full right" style={{backgroundColor:"rgb(64, 64, 251)"}}>Accede con facebook</button>
+                    <input class="btn-carrito btn-access full left" style={{backgroundColor:"var(--green)"}} type="submit" value='Crear Cuenta'></input>
+                    {/* <button class="btn-carrito btn-access full right" onClick={closeModal} style={{backgroundColor:"rgb(64, 64, 251)"}}>Accede con facebook</button> */}
                 </form>
             </div>
         </>
@@ -102,7 +128,7 @@ export default function Modal({modalType, data, show, closeModal}){
         modalClass = `login`;
         break;
 
-      case "basket":
+      case "basket": //! HACER
         modalContent = <>
           <span span className="close" onClick={closeModal} id="close">&times;</span>
 
@@ -112,7 +138,7 @@ export default function Modal({modalType, data, show, closeModal}){
         
         break;
 
-      default:
+      default: // * Defecto = Modal de Error
         document.body.style.overflow = "auto";
       
         modalContent = <>
@@ -124,6 +150,7 @@ export default function Modal({modalType, data, show, closeModal}){
         modalClass = `${modalType}-content`
         break;
     }
+
 
     return (
       <>

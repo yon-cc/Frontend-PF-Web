@@ -200,6 +200,8 @@ export default class Home extends React.Component{
         this.setState({modal:{data:"", show:true,type:"sigIn"}})
     }
 
+    
+
 
     render(){
         // console.log("Ulimit"+this.state.uLimit)
