@@ -9,7 +9,7 @@ export default class Container extends React.Component{
             <>
             <div className="container">
                 <Sidebar min={this.props.min} max={this.props.max}submitFilter={this.props.submitFilter} reset={this.props.reset} deletePrice={this.props.deletePrice}></Sidebar>
-                <Grid data={this.props.data} ></Grid>
+                <Grid data={this.props.data} clickProduct={this.props.clickProduct} ></Grid>
             </div>
             </>
         )

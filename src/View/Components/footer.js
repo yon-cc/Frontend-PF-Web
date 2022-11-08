@@ -45,7 +45,7 @@ export default class Footer extends React.Component{
             {pages[0] !==this.props.lLimit ? <button id={(pages[0]-2)}  className="link-pag arrow active"  href="" ><i className="bi bi-chevron-left" id={(pages[0]-2)}  ></i></button> : <></>}
 
             {pages.map((page)=>{
-                if(page === Number(this.props.goTo)) return <button className="link-pag active current"id={page} >{page}</button>
+                if(page === Number(this.props.goTo)) return <button className="link-pag active current"id={page} key={page}>{page}</button>
                 return <button className="link-pag active"id={page} >{page}</button>
             })}
 

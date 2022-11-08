@@ -9,7 +9,7 @@ export default class Grid extends React.Component{
 
             <div className="vitrina">
                 {this.props.data.map((item)=>{
-                    return <Product key={item._id} idP={item._id} discount={item.discount[0]} cantDiscount={item.discount[1]} isFavorite={false} img={item.image} title={item.name} detail={item.detail} price={item.price}></Product>
+                    return <Product key={item._id} idP={item.id} discount={item.discount[0]} cantDiscount={item.discount[1]} isFavorite={false} img={item.image} title={item.name} detail={item.detail} price={item.price} clickProduct={this.props.clickProduct}></Product>
                 })}
             </div>
             {/* <Example></Example> */}
@@ -33,8 +33,14 @@ class Product extends React.Component{
         this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick(){
-        console.log(this.props.idP)
+    handleClick(e){
+        const id = this.props.idP;
+        console.log(e.target.id)
+        if(e.target.id !== "favorite"){
+
+            this.props.clickProduct(id);
+        }
+        // console.log(this.props.idP)
     }
 
     render(){
@@ -42,7 +48,7 @@ class Product extends React.Component{
             <div className="product" onClick={this.handleClick}>
                 {this.state.discount ? <Discount discount={this.state.discount} cantDiscount={this.state.cantDiscount}></Discount> : <></>}
                 <Favorite isFavorite={this.state.favorite}></Favorite>
-                <Image url={this.props.img}></Image>
+                <Image url={this.props.img} holder={true}></Image>
 
                 <div>
                 <h3 className="title">{this.props.title}</h3>
@@ -56,9 +62,8 @@ class Product extends React.Component{
     }
 }
 
-function Image({url}){
+export function Image({url, holder}){
     const [img, setImg] = useState();
-
     const fetchImage = async () => {
       const res = await fetch(url);
       const imageBlob = await res.blob();
@@ -71,20 +76,21 @@ function Image({url}){
     }, []); 
 
     return (
-      <div className="img-holder">
-        <img src={img} alt="icons" />
-      </div>
+        <>
+            {(holder ? 
+            <div className="img-holder">
+                <img src={img} alt="img"/>
+            </div> 
+            : <img src={img} alt="img"></img>)}
+        </>
     );
 }
 
 function BtnBasket(){
-    const handleClick = () =>{
-        alert("Agregar al carrito");
-    }
 
     return(
         <div className="btn-holder">
-            <button className="btn-carrito" onClick={handleClick}>
+            <button className="btn-carrito">
                 <i className="bi bi-basket2-fill cesta"></i>
                 Agregar al carrito
             </button>
@@ -104,12 +110,46 @@ function Discount({discount,cantDiscount}){
 
 
 
-function Favorite({isFavorite}){
-    return(
-        <div className="fav-box">  
-            <i className="bi bi-heart fav"></i>
-            <i className="bi bi-heart-fill fav fill" ></i>
-            {/* {isFavorite ? <i onMouseEnter={mouseIn} onMouseLeave={mouseOut} className="bi bi-heart-fill fav "></i> : <i className="bi bi-heart fav  "></i>} */}
-        </div>
-    )
+export class Favorite extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {isFavorite:false}
+
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    handleClick(){
+        // this.setState({isFavorite:!this.state.isFavorite})
+        alert("favoritos")
+    }
+
+    render(){
+        return(
+            <>
+                {this.props.modal ? 
+                <>
+                <div className="fav-box-modal" onClick={this.handleClick} id="favorite">  
+
+                    <i className="bi bi-heart  fav-modal" id="favorite" ></i>
+                    <i className="bi bi-heart-fill  fill fav-modal"   id="favorite"></i>
+                    {this.state.isFavorite ? <i className="bi bi-heart-fill fav "id="favorite" ></i>:<></>}
+                    
+                </div>
+
+                </> : 
+                <>
+                <div className="fav-box" onClick={this.handleClick} id="favorite">                  
+                    <i className="bi bi-heart fav" id="favorite"  onClick={this.handleClick}></i>
+                    <i className="bi bi-heart-fill fav fill" id="favorite" onClick={this.handleClick} ></i>
+                    {this.state.isFavorite ? <i className="bi bi-heart-fill fav " id="favorite" ></i>:<></>}
+
+                </div>
+
+                </>}
+                
+            </>
+        )
+    }
 }

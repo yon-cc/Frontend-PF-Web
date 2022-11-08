@@ -1,17 +1,30 @@
 import React from 'react';
 import './header.css';
-// import ReactDOM from 'react-dom/client';
 import logo from './logobuena.jpg';
-
-// import ReactDOM from 'react-dom/client';
+import { Link } from 'react-router-dom';
 
 
 export default class Header extends React.Component{
 
 
+    componentDidMount(){
+        document.getElementById("userOptions").addEventListener("click",(e)=>{
+            document.getElementById("accountBtn").classList.toggle("box-visible");
+        });
+
+        window.onclick = function(event) {
+            if(event.target.id !== "userOptions"){
+                try {
+                    document.getElementById("accountBtn").classList.remove("box-visible");
+                } catch (error) {
+                    
+                }
+            }
+        } 
+    }
 
     render(){
-        return(
+        return(<>
             <header>
                 <div className='box-logo'onClick={this.props.reset}>
                     <img className='logo' src={logo} alt='Logo Buena Vida'  ></img>
@@ -37,13 +50,13 @@ export default class Header extends React.Component{
                         </button>
                     </div>
 
-                    <div className='box-icon'>
-                        <button className='btn-nav' >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" className="icon" id="userOptions">
+                    <div className='box-icon' id="userOptions">
+                        <button className='btn-nav' id="userOptions">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" className="icon" id="userOptions" >
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" id="userOptions"/>
                             <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" id="userOptions"/>
                         </svg>
-                            <p>Mi Cuenta</p>
+                            <p id="userOptions">Mi Cuenta</p>
                         </button>
                     </div>
 
@@ -59,6 +72,17 @@ export default class Header extends React.Component{
                 </div>
             </header>
 
+            <div class="sombra">
+
+            <nav class="box-accountBtn" id="accountBtn">
+              <Link to='/mi-cuenta'  class="accountBtn"><i class="bi             bi-person-fill"></i> Mi Cuenta</Link>
+              <button id="favorites" class="accountBtn"><i class="bi            bi-heart"></i> Mis Favoritos</button>
+              <Link to='/carrito'  class="accountBtn"><i class="bi bi-check-lg"></i> Mi Carrito</Link>
+              <button id="login" class="accountBtn" onClick={this.props.logIn}><i class="bi bi-lock"></i>       Entrar</button>
+              <button id="signin" class="accountBtn no-border" onClick={this.props.sigIn}><i class="bi bi-person-plus-fill" ></i> Crear una cuenta</button>
+            </nav>
+            </div>
+            </>
         )
     }
 }

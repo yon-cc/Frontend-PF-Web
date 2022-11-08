@@ -177,3 +177,102 @@ a:visited{
         grid-template-columns: repeat(auto-fill, minmax(300px,3fr));
     }
 }
+
+.box-visible{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.accountBtn{
+    color: rgb(74, 74, 74);
+    text-decoration: none;
+
+}
+
+.accountBtn:visited{
+    color: rgb(74, 74, 74);
+
+}
+
+
+
+/* * Entrar (inicio de sesion) */
+
+.login{
+    padding: 30px 20px !important;
+    width: 500px !important;
+    /* border: 1px solid #000; */
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+.login input{
+    width: 97%;
+    font-size: 1rem;
+    padding: 6px;
+    margin-bottom: 30px;
+}
+
+.login label{
+    display: inline-block;
+    color: var(--color-p);
+}
+
+
+.captcha{
+    display: flex;
+    align-items: center;
+    background-color: rgb(243, 243, 243);
+    padding: 10px 15px;
+    width: 70%;
+    border: 1px solid gainsboro;
+    margin: 30px 0px 25px 0px;
+    /* justify-content: ; */
+}
+
+.captcha img{
+    width: 50px !important;
+}
+
+.captcha input[type="checkbox"]{
+    width: 30px;
+    height: 30px;
+    margin: 0px 20px 0px 0px;
+}
+.captcha label{
+    margin: 0px 70px 0px 0px;
+}
+
+.captcha span{
+    font-size: 0.6em;
+    color: rgb(149, 149, 149);
+}
+.btn-box{
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    color: #006414;
+    cursor: pointer;
+}
+.btn-access{
+    width: 45%;
+    font-size: 1rem;
+    background-color: var(--fondo);
+}
+
+
+.full{
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.login h2{
+    font-size: 1.2rem !important;
+    font-weight: 500;
+}
+
+.login p{
+    font-size: 0.9rem;
+}

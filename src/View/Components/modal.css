@@ -290,3 +290,238 @@
         padding-top: 40px;
     }
 }
+
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    text-align: justify;
+    padding: 30px 90px 30px 20px;
+    border: 1px solid #888;
+    width: 70%;
+    border-radius: 0.8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content img{
+    width: 25%;
+    float: left;
+    object-fit: cover;
+}
+
+.modal-disc{
+    transform: scale(1.1,1.1);
+    top:30px;
+    left: 30px;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    border-collapse: collapse;
+    position: relative;
+}
+
+.descrp{
+    margin-bottom: 130px !important;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2,  .modal-content h4, .modal-content p{
+    margin-bottom: 25px;
+}
+.modal-content h2{
+    font-size: 2rem;
+    padding-right: 3.5rem;
+}
+.modal-content h4{
+    font-size: 1.5rem;
+    color: var(--color-subtitulo);
+}
+.modal-content h3{
+    font-size: 2.2rem;
+    color: var(--green);
+    margin-bottom: 10px;
+}
+.modal-content p{
+    font-size: 1.1rem;
+}
+
+.modal-cesta{
+    margin-right: 12px;
+}
+
+.cesta-cant{
+    position: absolute;
+    bottom: 0px;
+    padding: 20px 0px;
+    width: 70%;
+}
+
+.btn-modal, .cantAdd, .modal-cesta{
+    font-size: 1.3rem;
+}
+
+.btn-modal{ 
+    /* font-size: 1.4rem; */
+    padding-left: 50px;
+    padding-right: 50px;
+    float: right;
+}
+
+.cant-inp{
+    font-size: 1.2rem;
+    color: var(--green);
+    font-weight: 600;
+}
+
+.btn-cant{
+    display: flex;
+    
+    justify-content:space-around;
+    padding: 5px 0px;
+    border-left: 1px solid var(--color-p);
+    flex-direction: column;
+    color: var(--color-p);
+    font-size: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-cant:hover{
+    background-color: #d7d7d7;
+}
+
+.cantAdd{
+    float: left;
+    width: 100px;
+    padding: 10px 0px;
+    color: var(--green);
+    text-align: center;
+    border-radius: 10px;
+    border:1px solid var(--color-p);
+    
+}
+
+.cant{
+    width: 100px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    text-align: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 3px;
+    float: left;
+}
+
+
+.fav-box-modal{
+    position: absolute;
+    top: 0px;
+    right: 25px;
+    z-index: 10;
+}
+
+.fav-modal:hover > .fill{
+    display: block;
+}
+
+
+/* * Modal Error */
+
+.error-modal{
+    background-color: transparent;
+    pointer-events:none;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.error-content{
+    color: rgb(0, 0, 0);
+    background-color: rgb(249, 165, 165);
+    border-color: red;
+    text-align: center;
+    justify-content: center;
+    padding: 20px 30px;
+    top: 0px;
+    width: 30%;
+    position:fixed;
+    margin-top: 20px;
+}
+
+.error-content span{
+    color: red;
+}
+
+.error-content h2{
+    margin: 0px;
+    font-size: 1.3rem;
+    padding: 0px;
+}
+
+/* * Menu de "Mi Cuenta" */
+
+.box-accountBtn{
+    
+
+    width: 210px;
+    position: absolute;
+    right: 270px;
+    top: -20px;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path 0.5s;
+
+}
+
+.accountBtn{
+    font-size: 0.9rem;
+    text-align: left;
+    display: block;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 10px;
+    border-bottom: 1px solid rgb(122, 122, 122);
+    cursor: pointer;
+    color: rgb(59, 59, 59);
+    
+    /* box-shadow: 2px 4px 10px 2px rgb(188, 188, 188); */
+}
+
+.box-visible{
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.sombra{
+    z-index: 3;
+    position: relative;
+    filter: drop-shadow(-1px -1px 5px rgba(50, 50, 0, 0.5));
+}
+
+.no-border{
+    border: none;
+}
+
+.accountBtn:hover{
+    background-color: #d7d7d7;
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../Components/container";
 import Header from "../Components/header";
-import ModalProducts from "../Components/modal";
+import Modal from "../Components/modal";
 import controller from '../../Controller/controller';
 import Footer from "../Components/footer";
 
@@ -20,6 +20,7 @@ export default class Home extends React.Component{
             lLimit :1,
             search:undefined,
             priceBet : undefined,
+            modal: {data:undefined, show:false, type:""}
         }
 
         this.clickPage = this.clickPage.bind(this);
@@ -27,6 +28,10 @@ export default class Home extends React.Component{
         this.deleteSearch = this.deleteSearch.bind(this);
         this.deletePrice = this.deletePrice.bind(this);
         this.clickFilter = this.clickFilter.bind(this);
+        this.clickModal = this.clickModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.logIn = this.logIn.bind(this);
+        this.sigIn = this.sigIn.bind(this);
     }
 
     componentDidMount(){
@@ -44,6 +49,7 @@ export default class Home extends React.Component{
 
     clickPage(e){
         this.setState({page:e.target.id}, ()=>{this.getPage(this.state.page);})
+        window.scroll({top:0,left:0,behavior:'smooth'})
         
     }
 
@@ -83,7 +89,9 @@ export default class Home extends React.Component{
                 (data)=>{
                     if(data.message){
                         document.getElementById("search").value = "";
-                        alert(data.message);
+                        
+                        this.modalAlert(data.message);
+                        // alert(data.message);
                     }else{
                         this.setState({data: data}, ()=>{
                             document.getElementById("search").value = "";
@@ -162,16 +170,46 @@ export default class Home extends React.Component{
         e.preventDefault();
     }
 
+    clickModal(id){
+        controller.getProductsById(id).then(
+            (data)=>{
+                this.setState({modal:{data,show:true, type:"product"}});
+            }
+        );
+    }   
+
+    closeModal(e){
+         if(e.target.id === "modal" || e.target.id === "close"){
+            this.setState({modal:{data:undefined, show:false}});
+        }
+    }
+
+    modalAlert(message){
+        this.setState({search:undefined, modal:{data:message,show:true,type:"error"}},()=>{
+            setTimeout(()=>{
+                this.setState({modal:{data:undefined,show:false,type:""}})
+            }, 1500)
+        })
+    }
+
+    logIn(){
+        this.setState({modal:{data:"", show:true,type:"logIn"}})
+    }
+
+    sigIn(){
+        this.setState({modal:{data:"", show:true,type:"sigIn"}})
+    }
+
+
     render(){
         // console.log("Ulimit"+this.state.uLimit)
-
         return(<>
-            <ModalProducts text="aa"></ModalProducts>
+            <Modal modalType={this.state.modal.type} show={this.state.modal.show} data={this.state.modal.data} closeModal={this.closeModal}></Modal>
 
-            <Header reset={this.deleteSearch} submitSearch={this.search}></Header>
+            <Header reset={this.deleteSearch} submitSearch={this.search} logIn={this.logIn} sigIn={this.sigIn}></Header>
             {this.state.search ? <div className="searched-box" onClick={this.deleteSearch}><h2 className="searched"><b> Busquedas para: </b>{this.state.search}</h2> <hr></hr></div> : <></>}
             
-            <Container data={this.state.data} max={this.state.max} min={this.state.min} submitFilter={this.clickFilter} reset={this.state.reset} deletePrice={this.deletePrice}></Container>
+            <Container data={this.state.data} max={this.state.max} min={this.state.min} submitFilter={this.clickFilter} reset={this.state.reset} deletePrice={this.deletePrice} clickProduct={this.clickModal}></Container>
 
             <Footer lLimit={this.state.lLimit} uLimit={this.state.uLimit} goTo={this.state.page} clickNum={this.clickPage}></Footer>
         </>)

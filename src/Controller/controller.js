@@ -13,6 +13,11 @@ class Controller{
 
     }
 
+    async getProductsById(id){
+        const data = await this.getRequest(`products/specific/${id}`);
+        return data;
+    }
+
     async getProducts(page){
         const data = await this.getRequest(`products/${page}`);
         return data;

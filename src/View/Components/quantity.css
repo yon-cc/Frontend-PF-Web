@@ -1,0 +1,62 @@
+
+.cesta-cant{
+    position: absolute;
+    bottom: 0px;
+    padding: 20px 0px;
+    width: 70%;
+}
+
+.btn-modal, .cantAdd, .modal-cesta{
+    font-size: 1.3rem;
+}
+
+.btn-modal{ 
+    /* font-size: 1.4rem; */
+    padding-left: 50px;
+    padding-right: 50px;
+    float: right;
+}
+
+.cant-inp{
+    font-size: 1.2rem;
+    color: var(--green);
+    font-weight: 600;
+}
+
+.btn-cant{
+    display: flex;
+    
+    justify-content:space-around;
+    padding: 5px 0px;
+    border-left: 1px solid var(--color-p);
+    flex-direction: column;
+    color: var(--color-p);
+    font-size: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-cant:hover{
+    background-color: #d7d7d7;
+}
+
+.cantAdd{
+    float: left;
+    width: 100px;
+    padding: 10px 0px;
+    color: var(--green);
+    text-align: center;
+    border-radius: 10px;
+    border:1px solid var(--color-p);
+    
+}
+
+.cant{
+    width: 100px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    text-align: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 3px;
+    float: left;
+}
