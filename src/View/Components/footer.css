@@ -1,0 +1,46 @@
+.pag{
+    float: right;
+    padding: 15px 30px;
+}
+
+.link-pag{
+    display: none;
+    font-size: 1rem;
+    /* display: inline-block; */
+    align-items: center;
+    text-align: center;
+    margin: 0px 2px;
+    border: 1px solid lightgray;
+    background-color: #fff;
+    color: var(--color-p);
+    width: 46px;
+    line-height: 46px;
+    height: 46px;
+}
+.active{
+    display: inline-block;
+}
+
+.current{
+    border-color: var(--dark-gren);
+    border-width: 2px;
+    font-weight: 700;
+    color: var(--dark-gren) !important;
+}
+.link-pag:visited{
+    color: var(--color-p);
+}
+
+.link-pag:hover{
+    background-color: rgb(230, 230, 230);
+    border-color: #000;
+    color: #000;
+}
+
+.arrow-char{
+    height: 12px;
+}
+
+.arrow{
+    background-color: rgb(236, 236, 236);
+}

@@ -1,24 +1,59 @@
 import React, { useEffect, useState }  from "react";
-import controller from "../../Controller/controller";
+// import controller from "../../Controller/controller";
 import "./grid.css"
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import ModalProducts from "./modal";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import {data} from "./temp";
 
 export default class Grid extends React.Component{
     render(){
-        console.log("PROPS")
-        console.log(this.props.data);
+        console.log(this.props.data)
         return(
+            <>
+
             <div className="vitrina">
                 {this.props.data.map((item)=>{
-                    return <Product key={item._id} discount={item.discount[0]} cantDiscount={item.discount[1]} isFavorite={false} img={item.image} title={item.name} detail={item.detail} price={item.price}></Product>
+                    return <Product key={item._id} idP={item._id} discount={item.discount[0]} cantDiscount={item.discount[1]} isFavorite={false} img={item.image} title={item.name} detail={item.detail} price={item.price}></Product>
                 })}
             </div>
-            
+            {/* <Example></Example> */}
+            </>
             )
     }
 }
 
+function Example() {
+    const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
+    return (
+      <>
+        <Button variant="primary" onClick={handleShow}>
+          Launch demo modal
+        </Button>
+  
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
 
 class Product extends React.Component{
     img = "";
@@ -29,29 +64,27 @@ class Product extends React.Component{
         this.state = {
             discount: undefined,
             cantDiscount: 0,
-            favorte: false,
+            favorite: false,
         }
+
+        this.handleClick = this.handleClick.bind(this)
     }
 
-    // componentDidMount(){
-    //     controller.getImage(this.props.img).then(
-    //         (url)=>{
-    //             this.img = url;
-    //         }
-    //     );
-    // }
+    handleClick(){
+        console.log(this.props.idP)
+    }
 
     render(){
-        // console.log(this.img)
         return(
-            <div className="product">
+            <div className="product" onClick={this.handleClick}>
                 {this.state.discount ? <Discount discount={this.state.discount} cantDiscount={this.state.cantDiscount}></Discount> : <></>}
-                <Favorite isFavorite={this.state.favorte}></Favorite>
+                <Favorite isFavorite={this.state.favorite}></Favorite>
                 <Image url={this.props.img}></Image>
-                {/* <div className="img-holder"> */}
-                    {/* <img src={this.img} alt={`Img de ${this.props.title}`}></img> */}
-                {/* </div> */}
+
+                <div>
                 <h3 className="title">{this.props.title}</h3>
+
+                </div>
                 <p> <b>{this.props.detail}</b> </p>
                 <h3>$ {this.props.price}</h3>
                 <BtnBasket></BtnBasket>
@@ -61,13 +94,10 @@ class Product extends React.Component{
 }
 
 function Image({url}){
-    const endpoint = `http://localhost:1802/api/products/image/${url.split("images/").pop()}`
-
-
     const [img, setImg] = useState();
 
     const fetchImage = async () => {
-      const res = await fetch(endpoint);
+      const res = await fetch(url);
       const imageBlob = await res.blob();
       const imageObjectURL = URL.createObjectURL(imageBlob);
       setImg(imageObjectURL);
@@ -113,8 +143,10 @@ function Discount({discount,cantDiscount}){
 
 function Favorite({isFavorite}){
     return(
-        <>
-            {isFavorite ? <i className="bi bi-heart fav"></i> : <i className="bi bi-heart-fill fav fill"></i>}
-        </>
+        <div className="fav-box">  
+            <i className="bi bi-heart fav"></i>
+            <i className="bi bi-heart-fill fav fill" ></i>
+            {/* {isFavorite ? <i onMouseEnter={mouseIn} onMouseLeave={mouseOut} className="bi bi-heart-fill fav "></i> : <i className="bi bi-heart fav  "></i>} */}
+        </div>
     )
 }

@@ -19,21 +19,10 @@ class Controller{
     }
 
     async getMaxMin(){
-        // const data = await this.getRequest("maxmin.json");
-        const data  = {min:1,max:100}
+        const data = await this.getRequest("products/limit/price");
         return data;
     }
 
-    async getImage(url){
-        const endpoint = `http://localhost:1802/api/products/image/${url.split("images/").pop()}`
-        // console.log(endpoint);
-        // const data = await this.getRequest(`${endpoint}`);
-        const response = await  fetch(endpoint);
-        const imageBlob = await response.blob();
-        const imgUrl = await URL.createObjectURL(imageBlob);
-        console.log(imgUrl)
-        return imgUrl;
-    }
 }
 
 const controller = new Controller();

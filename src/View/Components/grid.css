@@ -87,7 +87,7 @@ span {
     font-size: 1.4rem;
     top: 20px;
     right: 25px;
-    clip-path: polygon(49% 57%, 49% 57%, 49% 57%, 49% 57%);
+    clip-path: polygon(0% 100.3%, 100.1% 100.3%, 100% 100%, 0% 100%);
     transition: clip-path 1s;
     color: var(--red);
     padding: 1px;
