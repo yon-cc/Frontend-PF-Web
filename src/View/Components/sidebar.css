@@ -1,6 +1,6 @@
 
 .filter{
-    max-height: 260px;
+    /* max-height: 260px; */
     background-color: #fff;
     padding: 20px 40px;
     margin-left: 10px;
@@ -29,8 +29,10 @@
     margin-bottom: 20px;
 }
 
-.filter input[type=submit]{
+.filter input[type=submit], .filter input[type=button]{
     padding: 15px 50px;
+    margin: 5px 0px;
+
     border: none;
     border-radius: 30px;
     width: 100%;
@@ -44,7 +46,7 @@
     overflow: auto;
 }
 
-.filter input[type=submit]:hover{
+.filter input[type=submit]:hover , .filter input[type=button]:hover{
     color: #fff;
     background-color: var(--orange);
 }
@@ -73,6 +75,8 @@
     text-align: center;
     margin-top: 5px;
     box-shadow: inset 1px 1px 3px  rgb(200, 200, 200);
+    color: rgb(138, 138, 138);
+
 }
 
 .limit label{

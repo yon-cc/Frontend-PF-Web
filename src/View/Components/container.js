@@ -8,8 +8,8 @@ export default class Container extends React.Component{
         return(
             <>
             <div className="container">
-                <Sidebar min={this.props.min} max={this.props.max}></Sidebar>
-                <Grid data={this.props.data}></Grid>
+                <Sidebar min={this.props.min} max={this.props.max}submitFilter={this.props.submitFilter} reset={this.props.reset} deletePrice={this.props.deletePrice}></Sidebar>
+                <Grid data={this.props.data} ></Grid>
             </div>
             </>
         )

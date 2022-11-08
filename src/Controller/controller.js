@@ -18,6 +18,16 @@ class Controller{
         return data;
     }
 
+    async getProductsByPrice(lower,upper, page){
+        const data = await this.getRequest(`products/price/lower=${lower}&upper=${upper}/${page}`);
+        return data;
+    }
+
+    async getProductsByName(search, page){
+        const data = await this.getRequest(`products/name/${search}/${page}`);
+        return data;
+    }
+
     async getMaxMin(){
         const data = await this.getRequest("products/limit/price");
         return data;
@@ -28,10 +38,16 @@ class Controller{
         return data
     }
 
-    async getProductsByName(search, page){
-        const data = await this.getRequest(`products/name/${search}/${page}`);
+    async getLastPageSearch(search){
+        const data = await this.getRequest(`products/name/${search}/pages`);
+        return data
+    }
+
+    async getLastPagePrice(lower,upper){
+        const data = await this.getRequest(`products/price/lower=${lower}&upper=${upper}/pages`);
         return data;
     }
+
 
 }
 

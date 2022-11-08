@@ -10,7 +10,6 @@ export default class Footer extends React.Component{
         super(props);
         
         if(this.props.uLimit < this.uLimit) this.uLimit = this.props.uLimit 
-        
     }
 
     fillArray(from, to){
@@ -22,6 +21,12 @@ export default class Footer extends React.Component{
     }
 
     render(){
+        if(this.props.uLimit < this.uLimit) this.uLimit = this.props.uLimit 
+
+        if(this.props.uLimit > this.uLimit && this.props.uLimit<=5) this.uLimit = this.props.uLimit
+        // console.log("PROPS:"+this.props.uLimit)
+        // console.log(this.uLimit)
+
         let pages = []
 
         if(this.lLimit <= this.props.goTo && this.props.goTo <= this.uLimit){
