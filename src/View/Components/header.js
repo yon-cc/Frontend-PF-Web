@@ -13,12 +13,12 @@ export default class Header extends React.Component{
     render(){
         return(
             <header>
-                <div className='box-logo'>
+                <div className='box-logo'onClick={this.props.reset}>
                     <img className='logo' src={logo} alt='Logo Buena Vida'  ></img>
                 </div>
 
-                <div className='search'>
-                    <form action='#' className='search-form'>
+                <div className='search' onSubmit={this.props.submitSearch}>
+                    <form  className='search-form'>
                         <input type="search" name="" id="search" className="search-inp" placeholder="¿Qué producto estás buscando...?" ></input>
                     <button type="submit" className="search-sub" id="search-sub" >
                     <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" className="bi bi-search search-icon" viewBox="0 0 16 16">

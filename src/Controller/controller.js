@@ -23,6 +23,16 @@ class Controller{
         return data;
     }
 
+    async getLastPage(){
+        const data = await this.getRequest("products");
+        return data
+    }
+
+    async getProductsByName(search, page){
+        const data = await this.getRequest(`products/name/${search}/${page}`);
+        return data;
+    }
+
 }
 
 const controller = new Controller();

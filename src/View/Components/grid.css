@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px,4fr));
     grid-column: 500px;
+    
     /* overflow-x: hidden; */
     /* overflow-y: visible; */
 }
