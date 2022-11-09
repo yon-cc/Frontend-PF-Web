@@ -33,7 +33,10 @@ export default class Home extends React.Component{
         this.closeModal = this.closeModal.bind(this);
         this.logIn = this.logIn.bind(this);
         this.sigIn = this.sigIn.bind(this);
+        this.submitSignIn = this.submitSignIn.bind(this);
         this.submitLogIn = this.submitLogIn.bind(this);
+        this.addToCart = this.addToCart.bind(this);
+        this.showCart = this.showCart.bind(this);
     }
 
     componentDidMount(){
@@ -52,7 +55,9 @@ export default class Home extends React.Component{
     clickPage(e){
         this.setState({page:e.target.id}, ()=>{this.getPage(this.state.page);})
         window.scroll({top:0,left:0,behavior:'smooth'})
-        
+        console.log(sessionStorage.getItem("auth"));
+        console.log(sessionStorage.getItem("user"));
+
     }
 
     getLastPage(){
@@ -183,6 +188,7 @@ export default class Home extends React.Component{
     closeModal(e){
          if(e.target.id === "modal" || e.target.id === "close"){
             this.setState({modal:{data:undefined, show:false}});
+              document.body.style.overflow = "auto";
         }
     }
 
@@ -202,14 +208,14 @@ export default class Home extends React.Component{
         this.setState({modal:{data:"", show:true,type:"sigIn"}})
     }
     
-    submitLogIn (e){
+    submitSignIn (e){
         const name = document.getElementsByName("name")[0].value
         const lastname = document.getElementsByName("lastname")[0].value
         const email = document.getElementsByName("email")[0].value
         const password = document.getElementsByName("password")[0].value
   
         const data = {name, lastname, email, password}
-        console.log(data)
+        // console.log(data)
         this.setState({modal:{show:false}} )
 
         controller.singUp(data).then(
@@ -220,18 +226,63 @@ export default class Home extends React.Component{
         e.preventDefault();
     }
 
+    submitLogIn(e){
+        const email = document.getElementsByName("emailL")[0].value
+        const password = document.getElementsByName("passwordL")[0].value
+
+        const data = {email, password}
+        this.setState({modal:{show:false}} )
+        // console.log(sessionStorage.getItem("auth"));
+
+        controller.LogIn(data).then(
+          (dataR)=>{
+              alert(dataR.message)
+              if(dataR.row){
+                sessionStorage.setItem("auth", "true");
+                sessionStorage.setItem("user",dataR.row.email)
+              }
+          }
+        )
+        e.preventDefault();
+    }
+
+    showCart(){
+        if(sessionStorage.getItem("auth")==="true"){
+            controller.getCart(sessionStorage.getItem("user")).then((data)=>{
+
+                this.setState({modal:{type:"cart",show:true, data}})
+                console.log(data);
+            })
+            return
+        }
+        alert("Por favor inicie sesion, para ver el carrito.")
+    }
+
+    addToCart(data){
+        
+        if(data){
+            console.log(data)
+            controller.addToCart(data).then(
+                (dataR)=>{
+                    alert(dataR.message)
+                }
+              )
+        }
+        this.setState({modal:{show:false}})
+    }
+
     render(){
         // console.log("Ulimit"+this.state.uLimit)
         return(<>
 
-            {this.state.modal.show ? <Modal modalType={this.state.modal.type} show={this.state.modal.show} data={this.state.modal.data} closeModal={this.closeModal} submitLogIn={this.submitLogIn}></Modal> : <></>}
+            {this.state.modal.show ? <Modal modalType={this.state.modal.type} show={this.state.modal.show} data={this.state.modal.data} closeModal={this.closeModal} submitSignIn={this.submitSignIn} signIn={this.sigIn} submitLogIn={this.submitLogIn} closeCart={this.addToCart} ></Modal>  : <></>}
             
 {/* 
             {this.state.notify.show ? <Modal modalType={"notify"} show={this.state.notify.show} data={this.state.notify.data} key="notify"></Modal> : <></>
             } */}
 
             
-            <Header reset={this.deleteSearch} submitSearch={this.search} logIn={this.logIn} sigIn={this.sigIn}></Header>
+            <Header reset={this.deleteSearch} submitSearch={this.search} logIn={this.logIn} sigIn={this.sigIn} showCart={this.showCart}></Header>
             {this.state.search ? <div className="searched-box" onClick={this.deleteSearch}><h2 className="searched"><b> Busquedas para: </b>{this.state.search}</h2> <hr></hr></div> : <></>}
             
             <Container data={this.state.data} max={this.state.max} min={this.state.min} submitFilter={this.clickFilter} reset={this.state.reset} deletePrice={this.deletePrice} clickProduct={this.clickModal}></Container>

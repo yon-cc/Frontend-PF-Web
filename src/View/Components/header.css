@@ -276,3 +276,89 @@ a:visited{
 .login p{
     font-size: 0.9rem;
 }
+
+/* * Cart */
+
+.modal-basket{
+    background-color: #fefefe;
+    /* margin: auto; */
+    text-align: justify !important;
+    padding: 30px !important;
+    border: 1px solid #888 !important;
+    /* width: 70%; */
+    width: 400px !important;
+    border-radius: 0.8rem !important;
+    position: absolute !important;
+    overflow: hidden !important;
+    top:  70px !important ;
+    right: 20px !important;
+    overflow: hidden !important;
+    /* left: 1250px; */
+}
+
+.modal-basket h2{
+    color: var(--green) !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+    margin-bottom:  0px !important;
+}
+
+.modal-basket p{
+    margin-bottom:  0px !important;
+
+}
+
+.modal-basket h2, .modal-basket h3, .modal-basket h4, .modal-basket p{
+    display: inline-block !important;
+}
+
+.iva{
+    font-size: 0.8rem !important;
+    color: var(--green) !important;
+}
+
+.modal-basket hr{
+    border-color: var(--color-p);
+    margin: 20px 0px;
+}
+
+.cant-basket{
+    width: 60px;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    text-align: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 3px;
+    transform: scale(0.8, 0.8);
+}
+
+.basket-item{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    /* max-height: 210px; */
+}
+
+.basket-item h3, .basket-item h4{
+    font-weight: 500;
+    font-size: 1rem !important;
+    /* text-align: center; */
+    /* display: flex */
+    /* align-items: center; */
+}
+
+.basket-item img{
+    min-width: 100%;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+}
+
+
+.basket-item h4{
+    font-size: 0.9rem;
+}
+
+.money::after{
+    content: "€";
+}

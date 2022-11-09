@@ -6,6 +6,7 @@ class Controller{
     }
 
     async getRequest(endpoint){
+        // console.log(this.url + `/${endpoint}`)
         const response  = fetch(this.url + `/${endpoint}`);
         const data = (await response).json();
         // console.log(response)
@@ -22,7 +23,7 @@ class Controller{
         })
 
         const dataResponse = (await response).json();
-        console.log(response)
+        // console.log(response)
         return dataResponse
     }
 
@@ -33,6 +34,11 @@ class Controller{
 
     async getProducts(page){
         const data = await this.getRequest(`products/${page}`);
+        return data;
+    }
+
+    async getFavorites(user, page){
+        const data = await this.getRequest(`users/favorites/${user}/${page}`);
         return data;
     }
 
@@ -66,9 +72,39 @@ class Controller{
         return data;
     }
 
+    async getLastPageFavorites(user){
+        const data = await this.getRequest(`users/favorites/${user}/pages`);
+        return data;
+    }
+
     async singUp(data){
         const dataPost = await this.postRequest("users/register",data)
         return dataPost;
+    }
+
+    async LogIn(data){
+        const dataPost = await this.postRequest("users/login",data)
+        return dataPost;
+    }
+
+    async addToFavorites(data){
+        const dataPost = await this.postRequest("users/addFavorite",data)
+        return dataPost;
+    }
+
+    async removeFromFavorites(data){
+        const dataPost = await this.postRequest("users/removeFavorite",data)
+        return dataPost;
+    }
+
+    async addToCart(data){
+        const dataPost = await this.postRequest("users/addToCart",data)
+        return dataPost;
+    }
+
+    async getCart(user){
+        const data = await this.getRequest(`users/cart/${user}`);
+        return data;
     }
 }
 

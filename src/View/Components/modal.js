@@ -3,8 +3,9 @@ import './modal.css';
 import { Favorite, Image } from './grid';
 import Quantity from './quantity';
 import controller from '../../Controller/controller';
+import { Link } from 'react-router-dom';
 
-export default function Modal({modalType, data, show, closeModal, submitLogIn}){
+export default function Modal({modalType, data, show, closeModal, submitSignIn,signIn,submitLogIn, closeCart}){
   
     if(show){
       document.body.style.overflow = "hidden"
@@ -30,14 +31,33 @@ export default function Modal({modalType, data, show, closeModal, submitLogIn}){
       document.getElementById("captcha").checked = false;
     }
 
+    const openSignIn = (e)=>{
+      closeModal(e);
+      signIn();
+      e.preventDefault();
+    }
+
 
     let modalContent = <></>;
     let modalClass = <></>;
-    let errorForm = <></>;
-    let showError = <></>;
+    // let errorForm = <></>;
+    // let showError = <></>;
 
     switch (modalType) {
       case "product":
+
+        const clickAdd = (cant)=>{
+          if(sessionStorage.getItem("auth")==="true"){
+            const dataSend = {email:sessionStorage.getItem("user"),id_product:data.id, units:cant}
+
+
+            closeCart(dataSend);
+            return
+          }
+          closeCart();
+          alert("Por favor inicie sesion, para añadir productos a la cesta.")
+        }
+
         window.scroll({top:0,left:0})
         
 
@@ -52,7 +72,7 @@ export default function Modal({modalType, data, show, closeModal, submitLogIn}){
             <h4><b>{data.detail}</b></h4>
             <h3>$ {data.price} </h3>
             <p className="descrp">{data.description}</p>
-            <Quantity addToCart={true}> </Quantity>
+            <Quantity addToCart={true} funcAddToCart={clickAdd}> </Quantity>
           </div>
         </>
 
@@ -63,7 +83,7 @@ export default function Modal({modalType, data, show, closeModal, submitLogIn}){
         modalContent = <>
           <span span className="close" id="close">&times;</span>
             <div class="">
-                <form onSubmit={submitLogIn}>
+                <form onSubmit={submitSignIn}>
                     <h2>Crear nueva cuenta</h2>
                     <input type="text" name="name" id="" class="email-input" placeholder="Nombre" required/><br/>
                     <input type="text" name="lastname" id="" placeholder="Apellidos" required/><br/>
@@ -99,16 +119,16 @@ export default function Modal({modalType, data, show, closeModal, submitLogIn}){
             <span class="close" id="close">&times;</span>
 
             <div class="">
-                <form action="#">
-                    <label htmlFor="email" class="top-email"><i class="bi bi-envelope-fill"></i> Email</label><br/>
-                    <input type="email" name="email" id="" class="email-input"/><br/>
+                <form onSubmit={submitLogIn}>
+                    <label htmlFor="email" class="top-email" ><i class="bi bi-envelope-fill"></i> Email</label><br/>
+                    <input type="email" name="emailL" id="" class="email-input"required/><br/>
                     <label htmlFor="pass"><i class="bi bi-lock-fill"></i> Contraseña</label><br/>
-                    <input type="password" name="pass" id=""/><br/>
-                    <button class="btn-box left" id="signin2">Crear cuenta</button>
+                    <input type="password" name="passwordL" id=""required/><br/>
+                    <button class="btn-box left" onClick={openSignIn}>Crear cuenta</button>
                     <button class="btn-box right" id="recoverPass">Has olvidado tu contraseña</button>
                     
                     <div class="captcha">
-                        <input type="checkbox" name="captcha" id=""/>
+                        <input type="checkbox" name="captcha" id=""required/>
                         <label htmlFor="captcha">No soy un robot</label>
                         <div class="" style={{display: "flex",alignItems: "center",flexDirection: "column",}}>
                             <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/RecaptchaLogo.svg" alt=""/><br/>
@@ -126,13 +146,37 @@ export default function Modal({modalType, data, show, closeModal, submitLogIn}){
         modalClass = `login`;
         break;
 
-      case "basket": //! HACER
+      case "cart": 
+        const products = data.slice(0,data.length-1);
+        const total = data.slice(data.length-1);
+
+        console.log(products)
+        console.log(total[0][0])
         modalContent = <>
           <span span className="close" onClick={closeModal} id="close">&times;</span>
 
-          <h2 className="error">{data}</h2>
+            <h2>MI CARRITO</h2> <h2 id="cant-prod">({products.length})</h2>
+            <hr style={{marginBottom: "0px"}}/>
+            <div class="basket-container" id="basket-container">
+              {/* {*DATAAA} */}
+              {products.map((array)=>{
+                return <ProductCart img={array[0].image} name={array[0].name} detail={array[0].detail} units={array[1].units} price={array[0].price}></ProductCart>
+              })}
+
+            </div>
+            <div style={{overflow: "hidden"}}>
+                <p class="left">Subtotal</p><p class="right money" id="subtotal">${total[0][0].subtotal}</p>
+            </div>
+            <hr/>
+            <div style={{overflow: "hidden"}}>
+                <h2 class="left" style={{marginRight: "0px", paddingRight:"10px"}}>TOTAL</h2><span class="iva left" style={{paddingTop:"2px"}}>(IVA incluido)</span> <h2 id="total" class="money right" style={{paddingRight: "0px"}}>${total[0][0].total}</h2>
+            </div>
+            <hr/>
+            {/* <button class="btn-carrito btn-access full left" style={{backgroundColor:"var(--green)"}}>Ir al carrito</button> */}
+            <Link to="/pedido" class="btn-carrito btn-access full left" style={{backgroundColor:"var(--green)"}}>Realizar pedido</Link>
         
         </>
+        modalClass = `modal-basket`
         
         break;
 
@@ -168,3 +212,22 @@ export default function Modal({modalType, data, show, closeModal, submitLogIn}){
   }
 
 
+export function ProductCart({img,name,detail,units,price}){
+  return(<><div className='basket-item'>
+
+    <Image url={img} holder={true}></Image>
+    <div>
+      <h3>{name}</h3>
+      <br></br>
+      <h4>{detail}</h4> <br></br>
+      <h4>Cantidad</h4>
+      <div className='cesta-small'>
+      <Quantity units={units} small={true}></Quantity>
+
+      </div>
+      <h3 className='right'>$ {price}</h3>
+    </div>
+  </div>
+    <hr style={{marginTop:"0px"}}></hr>
+  </>)
+}

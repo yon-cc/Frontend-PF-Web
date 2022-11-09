@@ -38,10 +38,10 @@ export default class Sidebar extends React.Component{
             <div className='filter'>
                 <h2>Precio</h2>
                 <form onSubmit={this.props.submitFilter}>
-                    <input type="range" min={this.props.min} max={this.props.max} value={this.state.value} id='priceFilter' onChange={this.handleChange} step="0.01" /><br></br>
+                    <input type="range" min={this.props.min} max={this.props.max} value={this.props.disableFilter ? this.props.min : this.state.value} id='priceFilter' onChange={this.handleChange} step="0.01" /><br></br>
                     <div className='limit left'>
                         <label htmlFor='lower'>Desde</label><br></br>
-                        <input readOnly="readonly" type="text" className='filter-limit' id="lowerFilter" value={`$ ${this.initialV}`} ></input>
+                        <input readOnly="readonly" type="text" className='filter-limit' id="lowerFilter" value={this.props.disableFilter ? `${this.props.min}` : `$ ${this.initialV}`} ></input>
 
                     </div>
 
@@ -50,7 +50,8 @@ export default class Sidebar extends React.Component{
                         <input readOnly="readonly" type="text" className='filter-limit' id="upperFilter" value={`$ ${this.props.max}`} ></input>
 
                     </div>
-                    <input type="submit" value="Filtrar"/>
+                    {this.props.disableFilter ? <></>:  <input type="submit" value="Filtrar"/>}
+                  
                     {this.props.reset ? <input type="button" value="Eliminar Filtro" onClick={this.resetFilter}></input> : <></>}
                     
                     {/* <button type='submit'onClick={this.props.clickFilter}>Filtrar</button> */}

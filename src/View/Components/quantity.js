@@ -12,6 +12,13 @@ export default class Quantity extends React.Component{
 
         this.increase = this.increase.bind(this)
         this.decrease = this.decrease.bind(this)
+        this.addToCart = this.addToCart.bind(this)
+    }
+
+    componentDidMount(){
+        if(this.props.units){
+            this.setState({cant:this.props.units})
+        }
     }
 
     increase(){
@@ -24,11 +31,16 @@ export default class Quantity extends React.Component{
         }
     }
 
+    addToCart(e){
+        // console.log(this.state.cant)
+        this.props.funcAddToCart(this.state.cant);
+    }
+
     render(){
         return(
-            <div class="cesta-cant">
-                  <div class="cant">
-                      <div class="cant-inp">{this.state.cant}</div>
+            <>
+                  <div class={this.props.small ? "cant-basket":"cesta-cant"}>
+                      <div class="cant-inp" >{this.state.cant}</div>
                       <div class="buttons">
                           <div class="btn-cant" onClick={this.increase}>
                               <i class="bi bi-caret-up-fill" ></i>
@@ -40,9 +52,9 @@ export default class Quantity extends React.Component{
                       </div>
                   </div>
                 
-                {this.props.addToCart ? <button class="btn-carrito btn-modal"><i class="bi bi-basket2-fill cesta modal-cesta" ></i>Añadir a la cesta</button> : <></>}
+                {this.props.addToCart ? <button class="btn-carrito btn-modal" onClick={this.addToCart}><i class="bi bi-basket2-fill cesta modal-cesta" ></i>Añadir a la cesta</button> : <></>}
                   
-            </div>
+            </>
         )
     }
     

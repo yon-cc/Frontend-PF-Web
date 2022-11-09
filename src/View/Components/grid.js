@@ -1,15 +1,16 @@
 import React, { useEffect, useState }  from "react";
+import controller from "../../Controller/controller";
 import "./grid.css"
 
 export default class Grid extends React.Component{
     render(){
-        console.log(this.props.data)
+        // console.log(this.props.data)
         return(
             <>
 
             <div className="vitrina">
                 {this.props.data.map((item)=>{
-                    return <Product key={item._id} idP={item.id} discount={item.discount[0]} cantDiscount={item.discount[1]} isFavorite={false} img={item.image} title={item.name} detail={item.detail} price={item.price} clickProduct={this.props.clickProduct}></Product>
+                    return <Product key={item._id} idP={item.id} discount={item.discount[0]} cantDiscount={item.discount[1]} isFavorite={false} img={item.image} title={item.name} detail={item.detail} price={item.price} clickProduct={this.props.clickProduct} removeFav={this.props.removeFav} updateGrid={this.props.updateGrid}></Product>
                 })}
             </div>
             {/* <Example></Example> */}
@@ -30,24 +31,47 @@ class Product extends React.Component{
             favorite: false,
         }
 
-        this.handleClick = this.handleClick.bind(this)
+        this.addToFavorites = this.addToFavorites.bind(this)
     }
 
-    handleClick(e){
+    addToFavorites(e){
         const id = this.props.idP;
-        console.log(e.target.id)
-        if(e.target.id !== "favorite"){
+        if(e.target.id === "favorite"){
+            // console.log(this.props.idP)
 
-            this.props.clickProduct(id);
+            if(sessionStorage.getItem("auth")==="true"){
+                // console.log(e.target.id)
+                // console.log(id)
+                controller.addToFavorites({email:sessionStorage.getItem("user"),id_product:id}).then(
+                    (dataR)=>{
+                        alert(dataR.message)
+                    }
+                  )
+                return
+            }
+            
+            alert("Por favor inicie sesion, para agregar productos a favoritos.")
         }
-        // console.log(this.props.idP)
+
+        if(e.target.id=== "removeFav"){
+            controller.removeFromFavorites({email:sessionStorage.getItem("user"),id_product:id}).then(
+                (dataR)=>{
+                    alert(dataR.message)
+                }
+              )
+
+            this.props.updateGrid();
+            return
+        }
+
+        this.props.clickProduct(id);
     }
 
     render(){
         return(
-            <div className="product" onClick={this.handleClick}>
+            <div className="product" id={this.props.idP} onClick={this.addToFavorites} >
                 {this.state.discount ? <Discount discount={this.state.discount} cantDiscount={this.state.cantDiscount}></Discount> : <></>}
-                <Favorite isFavorite={this.state.favorite}></Favorite>
+                <Favorite isFavorite={this.state.favorite} removeFav={this.props.removeFav}></Favorite>
                 <Image url={this.props.img} holder={true}></Image>
 
                 <div>
@@ -117,20 +141,15 @@ export class Favorite extends React.Component{
 
         this.state = {isFavorite:false}
 
-        this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick(){
-        // this.setState({isFavorite:!this.state.isFavorite})
-        alert("favoritos")
-    }
 
     render(){
         return(
             <>
                 {this.props.modal ? 
                 <>
-                <div className="fav-box-modal" onClick={this.handleClick} id="favorite">  
+                <div className="fav-box-modal"  id="favorite">  
 
                     <i className="bi bi-heart  fav-modal" id="favorite" ></i>
                     <i className="bi bi-heart-fill  fill fav-modal"   id="favorite"></i>
@@ -140,10 +159,15 @@ export class Favorite extends React.Component{
 
                 </> : 
                 <>
-                <div className="fav-box" onClick={this.handleClick} id="favorite">                  
-                    <i className="bi bi-heart fav" id="favorite"  onClick={this.handleClick}></i>
-                    <i className="bi bi-heart-fill fav fill" id="favorite" onClick={this.handleClick} ></i>
-                    {this.state.isFavorite ? <i className="bi bi-heart-fill fav " id="favorite" ></i>:<></>}
+                <div className="fav-box" id="favorite">         
+                    {this.props.removeFav ? 
+                    <><i className="bi bi-heart fav" id="removeFav"  ></i>
+                    <i className="bi bi-x-circle-fill fav fill" id="removeFav"  ></i></>
+                    :
+                    <><i className="bi bi-heart fav" id="favorite"  ></i>
+                    <i className="bi bi-heart-fill fav fill" id="favorite"  ></i>
+                    {this.state.isFavorite ? <i className="bi bi-heart-fill fav " id="favorite" ></i>:<></>}</>
+                    }         
 
                 </div>
 

@@ -8,8 +8,11 @@ export default class Container extends React.Component{
         return(
             <>
             <div className="container">
-                <Sidebar min={this.props.min} max={this.props.max}submitFilter={this.props.submitFilter} reset={this.props.reset} deletePrice={this.props.deletePrice}></Sidebar>
-                <Grid data={this.props.data} clickProduct={this.props.clickProduct} ></Grid>
+                <Sidebar min={this.props.min} max={this.props.max}submitFilter={this.props.submitFilter} reset={this.props.reset} deletePrice={this.props.deletePrice} disableFilter={this.props.disableFilter}></Sidebar>
+                {this.props.noContent ? 
+                <h2>No tiene productos en favoritos</h2>:
+                <Grid data={this.props.data} clickProduct={this.props.clickProduct} removeFav={this.props.removeFav} updateGrid={this.props.updateGrid}></Grid>
+                }
             </div>
             </>
         )
