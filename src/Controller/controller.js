@@ -10,7 +10,20 @@ class Controller{
         const data = (await response).json();
         // console.log(response)
         return data;
+    }
 
+    async postRequest(endpoint,data){
+        const dataSend = JSON.stringify(data)
+
+        const response = await fetch(`${this.url}/${endpoint}`,{
+            method:'post',
+            body:dataSend,
+            headers: {'Content-Type':'application/json'}
+        })
+
+        const dataResponse = (await response).json();
+        console.log(response)
+        return dataResponse
     }
 
     async getProductsById(id){
@@ -53,7 +66,10 @@ class Controller{
         return data;
     }
 
-
+    async singUp(data){
+        const dataPost = await this.postRequest("users/register",data)
+        return dataPost;
+    }
 }
 
 const controller = new Controller();

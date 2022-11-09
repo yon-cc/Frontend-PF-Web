@@ -2,8 +2,9 @@ import React from 'react';
 import './modal.css';
 import { Favorite, Image } from './grid';
 import Quantity from './quantity';
+import controller from '../../Controller/controller';
 
-export default function Modal({modalType, data, show, closeModal}){
+export default function Modal({modalType, data, show, closeModal, submitLogIn}){
   
     if(show){
       document.body.style.overflow = "hidden"
@@ -11,36 +12,33 @@ export default function Modal({modalType, data, show, closeModal}){
       document.body.style.overflow = "auto";
     }
 
-    const submitLogIn = () => {
-      
+    
 
-    }
-    const isLetter= (e) => {
-      let char = String.fromCharCode(e.keyCode); // Get the character
-      if(/^[A-Za-z]+$/.test(char)) return true; // Match with regex 
-      else e.preventDefault(); // If not match, don't add to input text
-    }
 
     const checkPassword= (e)=>{
-      if(document.getElementById("pass1").value !== document.getElementById("pass2")){
+      if(document.getElementById("pass1").value !== document.getElementById("pass2").value){
         document.getElementById("dontPasswords").style.display = "block";
         document.getElementById("pass2").value = ""
+        document.getElementById("captcha").checked = false;
 
       }else{
         document.getElementById("dontPasswords").style.display = "none";
-
       }
-      
+    }
+
+    const controlChanges = (e)=>{
+      document.getElementById("captcha").checked = false;
     }
 
 
-    let modalContent;
-    let modalClass;
-    let errorForm;
-    let showError;
+    let modalContent = <></>;
+    let modalClass = <></>;
+    let errorForm = <></>;
+    let showError = <></>;
 
     switch (modalType) {
       case "product":
+        window.scroll({top:0,left:0})
         
 
         modalContent = 
@@ -65,19 +63,19 @@ export default function Modal({modalType, data, show, closeModal}){
         modalContent = <>
           <span span className="close" id="close">&times;</span>
             <div class="">
-                <form method='post' action=''>
+                <form onSubmit={submitLogIn}>
                     <h2>Crear nueva cuenta</h2>
                     <input type="text" name="name" id="" class="email-input" placeholder="Nombre" required/><br/>
-                    <input type="text" name="surname" id="" placeholder="Apellidos" required/><br/>
+                    <input type="text" name="lastname" id="" placeholder="Apellidos" required/><br/>
                     <h2>Informacion de inicio de sesion</h2>
                     <input type="email" name="email" id="" placeholder="Email"required/><br/>
-                    <input type="password" name="pass" id="pass1" placeholder="Contraseña"required/><br/>
-                    <input type="password" name="passConf" id="pass2" placeholder="Confirmar Contraseña" onKeyUp={checkPassword}  required/><br/>
+                    <input type="password" name="password" id="pass1" placeholder="Contraseña" onKeyUp={controlChanges} required/><br/>
+                    <input type="password" name="passwordConf" id="pass2" placeholder="Confirmar Contraseña" required/><br/>
                     
                     <p style={{color:"red",display:"none"}} id="dontPasswords">Las constraseñas no coinciden.</p>
                     <p>La contraseña debe contener al menos una mayuscula y un numero.</p>
                     <div class="captcha">
-                        <input type="checkbox" name="captcha" id=""required/>
+                        <input type="checkbox" name="captcha" id="captcha" required onClick={checkPassword}/>
                         <label htmlFor="captcha">No soy un robot</label>
                         <div class="" style={{display:"flex",alignItems: "center",flexDirection: "column",}}>
                             <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/RecaptchaLogo.svg" alt="Captcha"/><br/>
@@ -87,7 +85,7 @@ export default function Modal({modalType, data, show, closeModal}){
                         </div>
                     </div>
                     
-                    <input class="btn-carrito btn-access full left" style={{backgroundColor:"var(--green)"}} type="submit" value='Crear Cuenta'></input>
+                    <input class="btn-carrito btn-access full left" style={{backgroundColor:"var(--green)", fontSize:"1.5rem"}} type="submit" value='Crear Cuenta'></input>
                     {/* <button class="btn-carrito btn-access full right" onClick={closeModal} style={{backgroundColor:"rgb(64, 64, 251)"}}>Accede con facebook</button> */}
                 </form>
             </div>

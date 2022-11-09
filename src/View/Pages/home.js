@@ -20,7 +20,8 @@ export default class Home extends React.Component{
             lLimit :1,
             search:undefined,
             priceBet : undefined,
-            modal: {data:undefined, show:false, type:""}
+            modal: {data:undefined, show:false, type:""},
+            notify:{data:undefined, show:false}
         }
 
         this.clickPage = this.clickPage.bind(this);
@@ -32,6 +33,7 @@ export default class Home extends React.Component{
         this.closeModal = this.closeModal.bind(this);
         this.logIn = this.logIn.bind(this);
         this.sigIn = this.sigIn.bind(this);
+        this.submitLogIn = this.submitLogIn.bind(this);
     }
 
     componentDidMount(){
@@ -199,15 +201,36 @@ export default class Home extends React.Component{
     sigIn(){
         this.setState({modal:{data:"", show:true,type:"sigIn"}})
     }
-
     
+    submitLogIn (e){
+        const name = document.getElementsByName("name")[0].value
+        const lastname = document.getElementsByName("lastname")[0].value
+        const email = document.getElementsByName("email")[0].value
+        const password = document.getElementsByName("password")[0].value
+  
+        const data = {name, lastname, email, password}
+        console.log(data)
+        this.setState({modal:{show:false}} )
 
+        controller.singUp(data).then(
+          (dataR)=>{
+              alert(dataR.message)
+          }
+        )
+        e.preventDefault();
+    }
 
     render(){
         // console.log("Ulimit"+this.state.uLimit)
         return(<>
-            <Modal modalType={this.state.modal.type} show={this.state.modal.show} data={this.state.modal.data} closeModal={this.closeModal}></Modal>
 
+            {this.state.modal.show ? <Modal modalType={this.state.modal.type} show={this.state.modal.show} data={this.state.modal.data} closeModal={this.closeModal} submitLogIn={this.submitLogIn}></Modal> : <></>}
+            
+{/* 
+            {this.state.notify.show ? <Modal modalType={"notify"} show={this.state.notify.show} data={this.state.notify.data} key="notify"></Modal> : <></>
+            } */}
+
+            
             <Header reset={this.deleteSearch} submitSearch={this.search} logIn={this.logIn} sigIn={this.sigIn}></Header>
             {this.state.search ? <div className="searched-box" onClick={this.deleteSearch}><h2 className="searched"><b> Busquedas para: </b>{this.state.search}</h2> <hr></hr></div> : <></>}
             
